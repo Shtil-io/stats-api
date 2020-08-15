@@ -1,0 +1,30 @@
+service:
+  name: shtil
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  region: eu-central-1
+  runtime: nodejs12.x
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+functions:
+  consumeStats:
+    handler: handler.consumeStats
+  getStats:
+    handler: handler.getStats
+    events:
+      - http:
+          method: get
+          path: stats
