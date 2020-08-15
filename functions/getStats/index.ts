@@ -21,7 +21,7 @@ const parseEvent = (event: APIGatewayProxyEvent) => {
 const getStats: APIGatewayProxyHandler = async (event, _context) => {
   const { deviceIds, timestamp } = parseEvent(event);
 
-  connectToDB();
+  await connectToDB();
   console.info("Handler.getStats - connected to mongoDB");
 
   const stats = await getStatsByIds(deviceIds, timestamp);
